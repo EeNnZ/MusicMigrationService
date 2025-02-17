@@ -1,0 +1,6 @@
+﻿services:
+  musicmigrationservice.webhost:
+    image: musicmigrationservice.webhost
+    build:
+      context: .
+      dockerfile: MusicMigrationService.WebHost/Dockerfile
