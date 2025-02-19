@@ -1,6 +1,9 @@
 /.idea/
 .idea/
 .idea
+/.vs/
+.vs/
+.vs
 bin/
 obj/
 /packages/
