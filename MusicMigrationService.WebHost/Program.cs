@@ -9,27 +9,27 @@ public class Program
 
         ConfigureServices(services, builder.Configuration);
 
-        var app = builder.Build();
+        WebApplication app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
-            app.MapOpenApi();
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI();
         }
 
         app.UseHttpsRedirection();
-
         app.UseAuthorization();
-
-
         app.MapControllers();
 
-        app.Run();
+        await app.RunAsync().ConfigureAwait(false);
     }
 
     private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
     {
         services.AddControllers();
-        services.AddOpenApi();
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen();
+        // todo add services
     }
 }
