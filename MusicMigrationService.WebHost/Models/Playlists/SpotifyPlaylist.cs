@@ -1,7 +1,7 @@
 ﻿using MusicMigrationService.WebHost.Models.Interfaces;
 using SpotifyAPI.Web;
 
-namespace MusicMigrationService.WebHost.Models;
+namespace MusicMigrationService.WebHost.Models.Playlists;
 
 public class SpotifyPlaylist : IPlaylist
 {

@@ -1,5 +1,7 @@
-﻿using MusicMigrationService.WebHost.Models;
+﻿using System.Runtime.CompilerServices;
+using MusicMigrationService.WebHost.Models;
 using MusicMigrationService.WebHost.Models.Interfaces;
+using MusicMigrationService.WebHost.Models.Playlists;
 using MusicMigrationService.WebHost.Services.Interfaces;
 using SpotifyAPI.Web;
 
@@ -15,35 +17,50 @@ public class SpotifyService : ISpotifyService
     }
     
     
-    public async IAsyncEnumerable<IPlaylist?> GetUserPlaylistsAsync(CancellationToken token)
+    public async IAsyncEnumerable<IPlaylist?> GetUserPlaylistsAsync([EnumeratorCancellation] CancellationToken token)
     {
         Paging<FullPlaylist> response = await _spotify.Playlists.CurrentUsers(token);
 
-        if (response.Items != null)
-            foreach (FullPlaylist item in response.Items)
-            {
-                yield return new SpotifyPlaylist(item);
-            }
+        if (response.Items == null)
+            yield break;
+        
+        foreach (FullPlaylist item in response.Items)
+            yield return new SpotifyPlaylist(item);
     }
 
-    public Task<IPlaylist?> GetPlaylistAsync(string id, CancellationToken token)
+    public async Task<IPlaylist?> GetPlaylistAsync(string id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        FullPlaylist playlist = await _spotify.Playlists.Get(id, token);
+        return new SpotifyPlaylist(playlist);
     }
 
-    public IAsyncEnumerable<string> GetFavoriteIdsAsync(CancellationToken token)
+    public async IAsyncEnumerable<string> GetFavoriteIdsAsync([EnumeratorCancellation] CancellationToken token)
     {
-        throw new NotImplementedException();
+        Paging<SavedTrack> response = await _spotify.Library.GetTracks(token);
+
+        if (response.Items == null)
+            yield break;
+
+        foreach (SavedTrack track in response.Items)
+            yield return track.Track.Id;
     }
 
-    public Task<ITrack?> GetTrackAsync(string id)
+    public async Task<ITrack?> GetTrackAsync(string id)
     {
-        throw new NotImplementedException();
+        FullTrack response = await _spotify.Tracks.Get(id);
+        return new Track(response);
     }
 
-    public Task<string> SearchTrackAsync(string title, string artist)
+    public async Task<IEnumerable<ITrack>> SearchTrackAsync(string title, string artist, CancellationToken token)
     {
-        throw new NotImplementedException();
+        SearchRequest request = new SearchRequest(SearchRequest.Types.Track, string.Join(" ", title, artist));
+        SearchResponse response = await _spotify.Search.Item(request, CancellationToken.None);
+
+        if (response.Tracks.Items == null)
+            return Enumerable.Empty<ITrack>();
+
+        var tracks = response.Tracks.Items.Select(t => new Track(t));
+        return tracks;
     }
 
     public Task<string> CreatePlaylistAsync(string name, string description)

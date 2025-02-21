@@ -1,7 +1,7 @@
 using MusicMigrationService.WebHost.Models.Interfaces;
 using Yandex.Music.Api.Models.Playlist;
 
-namespace MusicMigrationService.WebHost.Models;
+namespace MusicMigrationService.WebHost.Models.Playlists;
 
 public class YandexPlaylist : IPlaylist
 {

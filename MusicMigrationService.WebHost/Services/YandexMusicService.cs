@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using MusicMigrationService.WebHost.Models;
 using MusicMigrationService.WebHost.Models.Interfaces;
+using MusicMigrationService.WebHost.Models.Playlists;
 using MusicMigrationService.WebHost.Services.Interfaces;
 using Yandex.Music.Api;
 using Yandex.Music.Api.Common;
