@@ -1,3 +1,5 @@
-﻿namespace MusicMigrationService.WebHost.Models;
+﻿using MusicMigrationService.WebHost.Models.Enums;
 
-public record MigrationStatus(string JobId, string Status, int Progress);
+namespace MusicMigrationService.WebHost.Models;
+
+public record MigrationStatus(string JobId, JobStatuses Status, int Progress);

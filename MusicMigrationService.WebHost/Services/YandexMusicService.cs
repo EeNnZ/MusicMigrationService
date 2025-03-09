@@ -9,6 +9,8 @@ using Yandex.Music.Api.Models.Account;
 using Yandex.Music.Api.Models.Common;
 using Yandex.Music.Api.Models.Library;
 using Yandex.Music.Api.Models.Playlist;
+using Yandex.Music.Api.Models.Search;
+using Yandex.Music.Api.Models.Search.Track;
 using Yandex.Music.Api.Models.Track;
 
 namespace MusicMigrationService.WebHost.Services;
@@ -74,6 +76,24 @@ public class YandexMusicService : IMusicService
         }
     }
 
+    public async IAsyncEnumerable<ITrack> GetFavoriteTracksAsync([EnumeratorCancellation] CancellationToken token)
+    {
+        YResponse<YLibraryTracks>? response = await _api.Library.GetLikedTracksAsync(_storage);
+        
+        if (response?.Result == null)
+            yield break;
+        
+        if(response.Result.Library.Tracks.Count == 0)
+            yield break;
+
+        foreach (YTrack libraryTrack in response.Result.Library.Tracks.)
+        {
+            token.ThrowIfCancellationRequested();
+            yield return new Track(libraryTrack);
+        }
+    }
+
+
     public async Task<ITrack?> GetTrackAsync(string id)
     {
         YResponse<List<YTrack>>? response = await _api.Track.GetAsync(_storage, id);
@@ -81,5 +101,34 @@ public class YandexMusicService : IMusicService
         YTrack? track = response?.Result?.FirstOrDefault();
         
         return track != null ? new Track(track) : null;
+    }
+
+    public async IAsyncEnumerable<ITrack> SearchTrackAsync(string title, string artist, CancellationToken token)
+    {
+        YResponse<YSearch>? response = await _api.Search.TrackAsync(_storage, string.Join(" ", title, artist));
+
+        if (response?.Result == null || response.Result.Tracks.Total == 0)
+            yield break;
+        
+        foreach (YSearchTrackModel trackModel in response.Result.Tracks.Results)
+        {
+            if (trackModel is YTrack track)
+                yield return new Track(track);
+        }
+    }
+
+    public Task<IPlaylist> CreatePlaylistAsync(string userId, string name, string description)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AddTracksToPlaylistAsync(string playlistId, IEnumerable<string> uris)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<string> GetCurrentUserIdAsync()
+    {
+        throw new NotImplementedException();
     }
 }

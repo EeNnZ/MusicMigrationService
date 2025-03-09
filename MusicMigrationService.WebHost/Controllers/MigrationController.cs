@@ -22,7 +22,7 @@ namespace MusicMigrationService.WebHost.Controllers
         [HttpPost("start")]
         public IActionResult StartMigration([FromBody] MigrationRequest request)
         {
-            string jobId = Guid.NewGuid().ToString();
+            var jobId = Guid.NewGuid().ToString();
             _queue.EnqueueJob(new MigrationJob(jobId, request.UserId));
             
             _logger.LogInformation($"Started migration: {jobId}");
