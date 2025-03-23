@@ -50,4 +50,12 @@ public class Track : ITrack
         
         return sb.ToString().TrimEnd(',');
     }
+    
+    public bool LooksLike(ITrack track)
+    {
+        bool isTitleSame = string.Compare(Title, track.Title, StringComparison.InvariantCultureIgnoreCase) == 0;
+        bool isArtistSame = string.Compare(Artist, track.Artist, StringComparison.InvariantCultureIgnoreCase) == 0;
+        
+        return isTitleSame && isArtistSame;
+    }
 }

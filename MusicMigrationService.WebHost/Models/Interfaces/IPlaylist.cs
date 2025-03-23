@@ -1,8 +1,4 @@
-﻿using System.Text;
-using Yandex.Music.Api.Models.Artist;
-using Yandex.Music.Api.Models.Track;
-
-namespace MusicMigrationService.WebHost.Models.Interfaces;
+﻿namespace MusicMigrationService.WebHost.Models.Interfaces;
 
 public interface IPlaylist
 {

@@ -1,4 +1,5 @@
 ﻿using MusicMigrationService.WebHost.Models.Interfaces;
+using MusicMigrationService.WebHost.Models.ResultTypes;
 
 namespace MusicMigrationService.WebHost.Services.Interfaces;
 
@@ -12,6 +13,8 @@ public interface IMusicService
     
     IAsyncEnumerable<ITrack> SearchTrackAsync(string title, string artist, CancellationToken token);
     Task<IPlaylist> CreatePlaylistAsync(string userId, string name, string description);
-    Task AddTracksToPlaylistAsync(string playlistId, IEnumerable<string> uris);
+    Task<bool> AddTracksToPlaylistAsync(string playlistId, IEnumerable<ITrack> tracks, CancellationToken token);
+    Task<OperationResult> AddToFavoritesAsync(IEnumerable<ITrack> tracks, CancellationToken token);
+    Task<bool> AddToFavoritesAsync(ITrack track, CancellationToken token);
     Task<string> GetCurrentUserIdAsync();
 }

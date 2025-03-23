@@ -1,5 +1,6 @@
 using MusicMigrationService.WebHost.Models.Interfaces;
 using Yandex.Music.Api.Models.Playlist;
+using Yandex.Music.Api.Models.Track;
 
 namespace MusicMigrationService.WebHost.Models.Playlists;
 
@@ -14,7 +15,7 @@ public class YandexPlaylist : IPlaylist
         Id = yaPlaylist.Uid;
         Title = yaPlaylist.Title;
 
-        var yTracks = yaPlaylist.Tracks.Select(container => container.Track);
+        IEnumerable<YTrack>? yTracks = yaPlaylist.Tracks.Select(container => container.Track);
         Tracks = yTracks.Select(yTrack => new Track(yTrack));
     }
 }

@@ -22,7 +22,7 @@ public class MigrationQueue : IMigrationQueue
         return _jobs.TryDequeue(out job);
     }
     public MigrationStatus? GetMigrationStatus(string jobId) =>
-        _migrationStatuses.TryGetValue(jobId, out var status) ? status : null;
+        _migrationStatuses.TryGetValue(jobId, out MigrationStatus? status) ? status : null;
     
     public void SetMigrationStatus(string jobId, MigrationStatus migrationStatus) =>
         _migrationStatuses[jobId] = migrationStatus;

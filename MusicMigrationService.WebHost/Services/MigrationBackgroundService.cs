@@ -1,5 +1,4 @@
-﻿using Microsoft.CodeAnalysis.Elfie.Serialization;
-using MusicMigrationService.WebHost.BackgroundJobs;
+﻿using MusicMigrationService.WebHost.BackgroundJobs;
 using MusicMigrationService.WebHost.Models;
 using MusicMigrationService.WebHost.Models.Enums;
 using MusicMigrationService.WebHost.Models.Interfaces;
@@ -38,12 +37,10 @@ public class MigrationBackgroundService(
 
     private async Task ProcessMigrationJob(MigrationJob job, CancellationToken token)
     {
-        IAsyncEnumerable<string> sourceFavIds = sourceService.GetFavoriteIdsAsync(token);
-        var sourceFavTracks = new List<ITrack>();
-        await foreach (string id in sourceFavIds)
-        {
-            
-        }
+        IAsyncEnumerable<ITrack> favoriteTracksAsync = sourceService.GetFavoriteTracksAsync(token);
         
+        ITrack[] array = await favoriteTracksAsync.ToArrayAsync(token);
+        
+        await destinationService.AddToFavoritesAsync(array, token);
     }
 }

@@ -6,4 +6,5 @@ public interface ITrack
     string Title { get; }
     string Artist { get; }
     uint Duration { get; }
+    bool LooksLike(ITrack track);
 }
