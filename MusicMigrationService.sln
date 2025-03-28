@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		compose.yaml = compose.yaml
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMigrationService.Client.Common", "MusicMigrationService.Client.Common\MusicMigrationService.Client.Common.csproj", "{36D64B40-BBB5-4E29-97B6-D45A7B5B987F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicMigrationService.Client.ConsoleClient", "MusicMigrationService.Client.ConsoleClient\MusicMigrationService.Client.ConsoleClient.csproj", "{7E7977B9-8B7E-401D-9E8F-CAB4084C756D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,5 +21,13 @@ Global
 		{37890F69-69A4-4311-815E-40FB5EF0DE9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37890F69-69A4-4311-815E-40FB5EF0DE9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37890F69-69A4-4311-815E-40FB5EF0DE9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36D64B40-BBB5-4E29-97B6-D45A7B5B987F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36D64B40-BBB5-4E29-97B6-D45A7B5B987F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36D64B40-BBB5-4E29-97B6-D45A7B5B987F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36D64B40-BBB5-4E29-97B6-D45A7B5B987F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E7977B9-8B7E-401D-9E8F-CAB4084C756D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E7977B9-8B7E-401D-9E8F-CAB4084C756D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E7977B9-8B7E-401D-9E8F-CAB4084C756D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E7977B9-8B7E-401D-9E8F-CAB4084C756D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
